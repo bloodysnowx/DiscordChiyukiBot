@@ -1,9 +1,16 @@
 import docker
 
+
 class FactorioClient:
     def __init__(self):
         self.client = docker.from_env()
 
+    def exists(self):
+        return len(list(filter(lambda container: container.name == 'factorio', self.client.containers.list()))) > 0
+
+    def is_running(self):
+        return self.client.containers.get('factorio').status == 'running'
+    
     def run(self):
         self.client.containers.run(
             image='factoriotools/factorio',

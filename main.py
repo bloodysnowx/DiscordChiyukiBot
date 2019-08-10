@@ -21,23 +21,38 @@ async def on_message(message):
 
     if commands[0] == '/factorio' and len(commands) >= 2:
         if commands[1] == 'start':
-            factorio_client.start()
-            await message.channel.send('factorio was started.')
+            if factorio_client.exists == False:
+                await message.channel.send('factorio does not exist.')
+            elif factorio_client.is_running:
+                await message.channel.send('factorio is already running.')
+            else:    
+                factorio_client.start()
+                await message.channel.send('factorio was started.')
         elif commands[1] == 'stop':
-            factorio_client.stop()
-            await message.channel.send('factorio was stopped.')
+            if factorio_client.exists == False:
+                await message.channel.send('factorio does not exist.')
+            elif factorio_client.is_running == False:
+                await message.channel.send('factorio is not running.')
+            else:
+                factorio_client.stop()
+                await message.channel.send('factorio was stopped.')
         elif commands[1] == 'update':
-            factorio_client.stop()
-            await message.channel.send('factorio was stopped.')
-            factorio_client.remove()
-            await message.channel.send('factorio removed.')
+            if factorio_client.exists:
+                if factorio_client.is_running:
+                    factorio_client.stop()
+                    await message.channel.send('factorio was stopped.')
+                factorio_client.remove()
+                await message.channel.send('factorio removed.')
             factorio_client.update()
             await message.channel.send('new factorio image was pulled.')
             factorio_client.run()
             await message.channel.send('new factorio image was started.')
         elif commands[1] == 'run':
-            factorio_client.run()
-            await message.channel.send('new factorio image was started.')
+            if factorio_client.exists:
+                await message.channel.send('factorio already exists.')
+            else:
+                factorio_client.run()
+                await message.channel.send('new factorio image was started.')
 
     if commands[0] == '/bot' and len(commands) >= 2:
         if commands[1] == 'host':
@@ -51,7 +66,9 @@ async def on_message(message):
                 '/factorio start - resume factorio server\n' \
                 '/factorio stop - stop factorio server\n' \
                 '/factorio update - update factorio server\n' \
-                '/factorio run - start factorio server with new image\n'
+                '/factorio run - start factorio server with new image\n' \
+                '/minecraft start - resume minecraft server\n' \
+                '/minecraft stop - stop minecraft server\n' 
             )
 
 
