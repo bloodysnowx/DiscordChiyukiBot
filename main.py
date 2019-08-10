@@ -1,7 +1,8 @@
 import discord
 import factorio_client
-import os
 import common_client
+import os
+import random
 
 
 discord_client = discord.Client()
@@ -15,6 +16,12 @@ async def on_ready():
 @discord_client.event
 async def on_message(message):
     if message.author.bot:
+        return
+
+    emojis = message.guild.emojis
+
+    if message.content.startswith('https://www.boomplayer.com/') or message.content.startswith('https://gyazo.com/') or len(message.attachments) > 0:
+        await message.add_reaction(random.choice(emojis))
         return
 
     commands = message.content.split(' ')
@@ -67,8 +74,8 @@ async def on_message(message):
                 '/factorio stop - stop factorio server\n' \
                 '/factorio update - update factorio server\n' \
                 '/factorio run - start factorio server with new image\n' \
-                '/minecraft start - resume minecraft server\n' \
-                '/minecraft stop - stop minecraft server\n' 
+                '/minecraft start - resume minecraft server(unimplemented feature)\n' \
+                '/minecraft stop - stop minecraft server(unimplemented feature)\n' 
             )
 
 
