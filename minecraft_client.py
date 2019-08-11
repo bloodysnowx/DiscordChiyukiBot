@@ -1,6 +1,11 @@
-import docker
+import container_client
 
 
-class MinecraftClient:
+class MinecraftClient(container_client.ContainerClient):
     def __init__(self):
-        pass
+        self.container_name = 'minecraft'
+        self.image_name = 'itzg/minecraft-server'
+        self.ports={'25565':25565}
+        self.volumes={'/opt/minecraft':{'bind':'/data', 'mode':'rw'}}
+        self.environment={'EULA':'TRUE'}
+
