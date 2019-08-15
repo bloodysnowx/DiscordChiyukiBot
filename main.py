@@ -67,23 +67,23 @@ async def on_message(message):
 
     if commands[0] == '/factorio' and len(commands) >= 2:
         if commands[1] == 'start':
-            process_start(factorio_client, message.channel)
+            await process_start(factorio_client, message.channel)
         elif commands[1] == 'stop':
-            process_stop(factorio_client, message.channel)
+            await process_stop(factorio_client, message.channel)
         elif commands[1] == 'update':
-            process_update(factorio_client, message.channel)
+            await process_update(factorio_client, message.channel)
         elif commands[1] == 'run':
-            process_run(factorio_client, message.channel)    
+            await process_run(factorio_client, message.channel)    
 
     if commands[0] == '/minecraft' and len(commands) >= 2:
         if commands[1] == 'start':
-            process_start(minecraft_client, message.channel)
+            await process_start(minecraft_client, message.channel)
         elif commands[1] == 'stop':
-            process_stop(minecraft_client, message.channel)
+            await process_stop(minecraft_client, message.channel)
         elif commands[1] == 'update':
-            process_update(minecraft_client, message.channel)
+            await process_update(minecraft_client, message.channel)
         elif commands[1] == 'run':
-            process_run(minecraft_client, message.channel)
+            await process_run(minecraft_client, message.channel)
 
     if commands[0] == '/bot' and len(commands) >= 2:
         if commands[1] == 'host':
